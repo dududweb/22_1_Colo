@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color: #ffffff;
     font-family:'Noto Sans KR'}
+    color:#2D2B2B;
   a {
     color: inherit;
     text-decoration: none;
