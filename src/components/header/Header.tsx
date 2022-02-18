@@ -1,8 +1,6 @@
 import * as S from './Header_Style';
 import React from 'react';
 import Button from '@components/button/Button';
-import { useRecoilState } from 'recoil';
-import { textState } from '../../atom';
 
 export default function Header() {
 	return (
