@@ -1,6 +1,7 @@
 import * as S from './Side_Style';
 import React from 'react';
 import { RELEASE_DATA } from './SideData';
+import DatePicker from '@components/datePicker/DatePicker';
 
 interface Root2 {
 	id: number;
@@ -18,7 +19,9 @@ export default function Side() {
 					<span>출고요청번호</span>
 					<span>21212.212</span>
 					<span>출고요청 일자</span>
-					<span>21212.212</span>
+					<span>
+						<DatePicker />
+					</span>
 					{RELEASE_DATA.map((items) => {
 						return (
 							<div key={items.id}>
