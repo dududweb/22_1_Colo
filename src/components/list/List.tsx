@@ -146,7 +146,7 @@ export default function List() {
 							</TableRow> */}
 							<TableRow style={{ width: '1100px' }}>
 								{columns.map((column) => (
-									<TableCell key={column.id} align={column.align} style={{ top: 0 }}>
+									<TableCell key={column.id} style={{ top: 0, maxWidth: '1100px' }}>
 										{column.label}
 									</TableCell>
 								))}
@@ -159,7 +159,7 @@ export default function List() {
 										{columns.map((column) => {
 											const value = row[column.id];
 											return (
-												<TableCell key={column.id} align={column.align}>
+												<TableCell key={column.id}>
 													{column.format && typeof value === 'number' ? column.format(value) : value}
 												</TableCell>
 											);
