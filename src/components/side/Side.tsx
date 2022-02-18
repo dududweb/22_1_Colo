@@ -25,8 +25,10 @@ export default function Side() {
 
 	const getSelectedData = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const { name, value } = event.target;
+		console.log(name, value);
 		setSelectedData({ ...selectedData, [name]: value });
 	};
+	console.log(selectedData);
 
 	const saveFilteredData = () => {
 		console.log('test');
@@ -47,16 +49,16 @@ export default function Side() {
 								<S.InfoItemsTitle>{items.title}:</S.InfoItemsTitle>
 								{items.selectItems.length === 1 ? (
 									<>
-										{items.selectItems.map((selectList, index) => {
-											return <S.InfoItemsContents>{selectList.name}</S.InfoItemsContents>;
+										{items.selectItems.map((selectList) => {
+											return <S.InfoItemsContents key={selectList.id}>{selectList.value}</S.InfoItemsContents>;
 										})}
 									</>
 								) : (
 									<select onChange={getSelectedData}>
-										{items.selectItems?.map((selectList, index) => {
+										{items.selectItems.map((selectList) => {
 											return (
-												<option value="12" key={index}>
-													{selectList.name}
+												<option value={selectList.value} key={selectList.id}>
+													{selectList.value}
 												</option>
 											);
 										})}

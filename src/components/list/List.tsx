@@ -24,7 +24,7 @@ export default function List() {
 			align: 'center',
 		},
 		{
-			id: 'order_id',
+			id: 'id',
 			label: '액셀 행 순번',
 			minWidth: 110,
 			align: 'center',
