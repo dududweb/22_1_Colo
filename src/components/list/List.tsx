@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as S from './List_Style';
 import Button from '@components/button/Button';
 import Paper from '@mui/material/Paper';
@@ -7,31 +6,99 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 export default function List() {
 	const columns = [
-		{ id: 'name', label: 'Name', minWidth: 170 },
+		{ id: 'name', label: 'Name', minWidth: 100 },
 		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
 		{
 			id: 'population',
 			label: 'Population',
-			minWidth: 170,
+			minWidth: 100,
 			align: 'right',
 			format: (value: any) => value.toLocaleString('en-US'),
 		},
 		{
 			id: 'size',
 			label: 'Size\u00a0(km\u00b2)',
-			minWidth: 170,
+			minWidth: 100,
 			align: 'right',
 			format: (value: any) => value.toLocaleString('en-US'),
 		},
 		{
 			id: 'density',
 			label: 'Density',
-			minWidth: 170,
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toFixed(2),
+		},
+		{ id: 'name', label: 'Name', minWidth: 100 },
+		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+		{
+			id: 'population',
+			label: 'Population',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toLocaleString('en-US'),
+		},
+		{
+			id: 'size',
+			label: 'Size\u00a0(km\u00b2)',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toLocaleString('en-US'),
+		},
+		{
+			id: 'density',
+			label: 'Density',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toFixed(2),
+		},
+		{ id: 'name', label: 'Name', minWidth: 100 },
+		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+		{
+			id: 'population',
+			label: 'Population',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toLocaleString('en-US'),
+		},
+		{
+			id: 'size',
+			label: 'Size\u00a0(km\u00b2)',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toLocaleString('en-US'),
+		},
+		{
+			id: 'density',
+			label: 'Density',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toFixed(2),
+		},
+		{ id: 'name', label: 'Name', minWidth: 100 },
+		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+		{
+			id: 'population',
+			label: 'Population',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toLocaleString('en-US'),
+		},
+		{
+			id: 'size',
+			label: 'Size\u00a0(km\u00b2)',
+			minWidth: 100,
+			align: 'right',
+			format: (value: any) => value.toLocaleString('en-US'),
+		},
+		{
+			id: 'density',
+			label: 'Density',
+			minWidth: 100,
 			align: 'right',
 			format: (value: any) => value.toFixed(2),
 		},
@@ -58,48 +125,37 @@ export default function List() {
 		createData('Russia', 'RU', 146793744, 17098246),
 		createData('Nigeria', 'NG', 200962417, 923768),
 		createData('Brazil', 'BR', 210147125, 8515767),
+		createData('Korea', 'BR', 210147125, 8515767),
 	];
-
-	const [page, setPage] = React.useState(0);
-	const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-	const handleChangePage = (even: any, newPage: any) => {
-		setPage(newPage);
-	};
-
-	const handleChangeRowsPerPage = (event: any) => {
-		setRowsPerPage(+event.target.value);
-		setPage(0);
-	};
 
 	return (
 		<S.Container>
 			<div>출고 요청서 매핑 리스트</div>
 
-			<Paper sx={{ width: '100%' }}>
-				<TableContainer sx={{ maxHeight: 440 }}>
+			<Paper sx={{ width: '1100px' }}>
+				<TableContainer sx={{ maxHeight: 600 }}>
 					<Table stickyHeader aria-label="sticky table">
 						<TableHead>
-							<TableRow>
+							{/* <TableRow>
 								<TableCell align="center" colSpan={2}>
 									Country
 								</TableCell>
 								<TableCell align="center" colSpan={3}>
 									Details
 								</TableCell>
-							</TableRow>
-							<TableRow>
+							</TableRow> */}
+							<TableRow style={{ width: '1100px' }}>
 								{columns.map((column) => (
-									<TableCell key={column.id} align={column.align} style={{ top: 57, minWidth: column.minWidth }}>
+									<TableCell key={column.id} align={column.align} style={{ top: 0 }}>
 										{column.label}
 									</TableCell>
 								))}
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => {
+							{rows.map((row: any) => {
 								return (
-									<TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+									<TableRow hover key={row.code}>
 										{columns.map((column) => {
 											const value = row[column.id];
 											return (
@@ -114,15 +170,6 @@ export default function List() {
 						</TableBody>
 					</Table>
 				</TableContainer>
-				<TablePagination
-					rowsPerPageOptions={[10, 25, 100]}
-					component="div"
-					count={rows.length}
-					rowsPerPage={rowsPerPage}
-					page={page}
-					onPageChange={handleChangePage}
-					onRowsPerPageChange={handleChangeRowsPerPage}
-				/>
 			</Paper>
 
 			<Button buttonName="출고주문서 다운로드" backgroundColor="#1a237e" color="#fff" margin="10" />
