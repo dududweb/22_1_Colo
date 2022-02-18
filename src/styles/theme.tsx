@@ -1,4 +1,7 @@
 const theme = {
+	desktopSize: '1100px',
+	tabletSize: '884px',
+	mobileSize: '464px',
 	background: '#000',
 	mainColor: '#1a237e',
 	white: '#FFFFFF',
@@ -13,6 +16,7 @@ const theme = {
 	fontWeightSemiBold: '500',
 	fontWeightRegular: '400',
 	fontWeightLight: '200',
+	marginCenter: 'margin:0 auto',
 	flexCenterCenter: 'display:flex; justify-content:center; align-items:center;',
 	flexSpaceBetweenCenter: 'display:flex; justify-content:space-between; align-items:center;',
 	flexColumnCenter: 'display:flex; flex-direction:column; justify-content:center; align-items:center ',
