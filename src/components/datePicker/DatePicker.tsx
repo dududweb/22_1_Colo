@@ -1,16 +1,22 @@
-import * as React from 'react';
+import * as S from './DatePicker_Style';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Datepicker } from './DatePicker_Style';
+
+interface BasicDatePicker {
+	startDate: object;
+	endDate: object;
+	setStartDate: () => void;
+	setEndDate: () => void;
+}
 
 export default function BasicDatePicker(props: any) {
 	const { startDate, setStartDate, endDate, setEndDate } = props;
+	console.log(startDate, endDate);
 
 	return (
-		<Datepicker>
+		<S.DatepickerContainer>
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<DatePicker
 					label="YYYY.MM.DD YY:MM"
@@ -42,6 +48,6 @@ export default function BasicDatePicker(props: any) {
 					}
 				/>
 			</LocalizationProvider>
-		</Datepicker>
+		</S.DatepickerContainer>
 	);
 }
