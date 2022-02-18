@@ -21,7 +21,7 @@ export default function Side() {
 				<S.ReleaseInfo>
 					<S.InfoList>
 						<S.InfoItmesTitle>출고요청번호</S.InfoItmesTitle>
-						<S.InfoItmesContents>21212.212</S.InfoItmesContents>
+						<S.InfoItmesContents>Xl-21212-212</S.InfoItmesContents>
 					</S.InfoList>
 					{RELEASE_DATA.map((items) => {
 						return (
