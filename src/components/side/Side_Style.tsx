@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const Side = styled.aside`
 	width: 400px;
 	border-right: 1px solid #ebebeb;
-	padding-left: 20px;
-	margin-top: 2rem;
+	padding: 1rem 1rem 0;
 `;
 
 export const SideInner = styled.div`

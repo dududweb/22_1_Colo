@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import * as S from './List_Style';
 import Button from '@components/button/Button';
 import Paper from '@mui/material/Paper';
@@ -9,161 +11,210 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 export default function List() {
+	const [orderList, setOrderList] = useState<any[]>();
+
 	const columns = [
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+		{ id: 'date', label: '출고요청일자', minWidth: 110 },
+		{ id: 'release_status', label: '출고 상태', minWidth: 110 },
+		{ id: 'release_type', label: '출고 유형', minWidth: 110 },
 		{
-			id: 'population',
-			label: 'Population',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'file_name',
+			label: '출고서파일명',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'size',
-			label: 'Size\u00a0(km\u00b2)',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'order_id',
+			label: '액셀 행 순번',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'density',
-			label: 'Density',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toFixed(2),
-		},
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-		{
-			id: 'population',
-			label: 'Population',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'map_status',
+			label: '매핑상태',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'size',
-			label: 'Size\u00a0(km\u00b2)',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'order_form',
+			label: '주문서 양식',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'density',
-			label: 'Density',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toFixed(2),
-		},
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-		{
-			id: 'population',
-			label: 'Population',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'order_num',
+			label: '주문번호',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'size',
-			label: 'Size\u00a0(km\u00b2)',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'linked_product',
+			label: '연동상품ID',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'density',
-			label: 'Density',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toFixed(2),
-		},
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-		{
-			id: 'population',
-			label: 'Population',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'product_name',
+			label: '주문명',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'size',
-			label: 'Size\u00a0(km\u00b2)',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toLocaleString('en-US'),
+			id: 'comp_product_name',
+			label: '콜로상품명',
+			minWidth: 110,
+			align: 'center',
 		},
 		{
-			id: 'density',
-			label: 'Density',
-			minWidth: 100,
-			align: 'right',
-			format: (value: any) => value.toFixed(2),
+			id: 'comp_product_code',
+			label: '콜로상품코드',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'comp_product_id',
+			label: '콜로상품ID',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'amount',
+			label: '주문수량',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'unit',
+			label: '주문단위',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'release_amount',
+			label: '출고수량',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'warehouse',
+			label: '출고창고명',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'lack_stock',
+			label: '재고부족여부',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'warehouse',
+			label: '주문자',
+			minWidth: 110,
+			align: 'center',
+		},
+		{
+			id: 'user_phone',
+			label: '전화번호',
+			minWidth: 110,
+			align: 'center',
 		},
 	];
 
-	function createData(name: any, code: any, population: any, size: any) {
-		const density = population / size;
-		return { name, code, population, size, density };
-	}
+	useEffect(() => {
+		getData();
+	}, []);
 
-	const rows = [
-		createData('India', 'IN', 1324171354, 3287263),
-		createData('China', 'CN', 1403500365, 9596961),
-		createData('Italy', 'IT', 60483973, 301340),
-		createData('United States', 'US', 327167434, 9833520),
-		createData('Canada', 'CA', 37602103, 9984670),
-		createData('Australia', 'AU', 25475400, 7692024),
-		createData('Germany', 'DE', 83019200, 357578),
-		createData('Ireland', 'IE', 4857000, 70273),
-		createData('Mexico', 'MX', 126577691, 1972550),
-		createData('Japan', 'JP', 126317000, 377973),
-		createData('France', 'FR', 67022000, 640679),
-		createData('United Kingdom', 'GB', 67545757, 242495),
-		createData('Russia', 'RU', 146793744, 17098246),
-		createData('Nigeria', 'NG', 200962417, 923768),
-		createData('Brazil', 'BR', 210147125, 8515767),
-		createData('Korea', 'BR', 210147125, 8515767),
-	];
+	const getData = async () => {
+		axios
+			.get('/mockData.json')
+			.then((res: any) => {
+				setOrderList(res.data.orderlist);
+			})
+			.catch((error) => console.log(error));
+	};
 
 	return (
 		<S.Container>
-			<div>출고 요청서 매핑 리스트</div>
+			<S.Title>출고 요청서 매핑 리스트</S.Title>
 
 			<Paper sx={{ width: '1100px' }}>
-				<TableContainer sx={{ maxHeight: 600 }}>
+				<TableContainer sx={{ maxHeight: 700 }}>
 					<Table stickyHeader aria-label="sticky table">
 						<TableHead>
-							{/* <TableRow>
-								<TableCell align="center" colSpan={2}>
-									Country
-								</TableCell>
-								<TableCell align="center" colSpan={3}>
-									Details
-								</TableCell>
-							</TableRow> */}
-							<TableRow style={{ width: '1100px' }}>
-								{columns.map((column) => (
-									<TableCell key={column.id} style={{ top: 0, maxWidth: '1100px' }}>
-										{column.label}
-									</TableCell>
-								))}
+							<TableRow>
+								<div>
+									{columns.slice(0, 10).map((column) => (
+										<TableCell
+											key={column.id}
+											style={{
+												top: 57.5,
+												minWidth: column.minWidth,
+												backgroundColor: 'lightgrey',
+											}}
+										>
+											{column.label}
+										</TableCell>
+									))}
+								</div>
+								<div>
+									{columns.slice(10, 20).map((column) => (
+										<TableCell
+											key={column.id}
+											style={{ top: 57.5, minWidth: column.minWidth, backgroundColor: 'lightgrey' }}
+										>
+											{column.label}
+										</TableCell>
+									))}
+								</div>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{rows.map((row: any) => {
+							{orderList?.map((row: any) => {
 								return (
 									<TableRow hover key={row.code}>
-										{columns.map((column) => {
-											const value = row[column.id];
-											return (
-												<TableCell key={column.id}>
-													{column.format && typeof value === 'number' ? column.format(value) : value}
-												</TableCell>
-											);
-										})}
+										<div>
+											{columns.slice(0, 10).map((column) => {
+												const value = row[column.id];
+												return (
+													<TableCell
+														key={column.id}
+														style={{
+															width: '110px',
+															fontSize: '12px',
+															height: '10px',
+															borderBottom: 'none',
+															display: 'inline-block',
+															whiteSpace: 'nowrap',
+															overflow: 'hidden',
+															textOverflow: 'ellipsis',
+														}}
+													>
+														{value}
+													</TableCell>
+												);
+											})}
+										</div>
+										<div>
+											{columns.slice(10, 20).map((column) => {
+												const value = row[column.id];
+												return (
+													<TableCell
+														key={column.id}
+														style={{
+															width: '110px',
+															fontSize: '12px',
+															display: 'inline-block',
+															whiteSpace: 'nowrap',
+															overflow: 'hidden',
+															textOverflow: 'ellipsis',
+														}}
+													>
+														{value}
+													</TableCell>
+												);
+											})}
+										</div>
 									</TableRow>
 								);
 							})}
