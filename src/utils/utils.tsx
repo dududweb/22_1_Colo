@@ -1,7 +1,7 @@
 import React from 'react';
 
 function utils() {
-	return <div>utils</div>;
+	return <div>afda</div>;
 }
 
 export default utils;
