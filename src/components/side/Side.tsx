@@ -15,7 +15,14 @@ export default function Side() {
 	const [endDate, setEndDate] = useState<number>(0);
 	console.log(typeof startDate);
 
-	const List = [{ name: '출고요청' }, { name: '출고중' }, { name: '출고완료' }];
+	const [list, setList] = useState();
+
+	const selectValue = (e: any) => {
+		const { value } = e.target;
+		setList(value);
+	};
+
+	console.log('test>>', list);
 
 	return (
 		<S.Side>
@@ -33,10 +40,10 @@ export default function Side() {
 								{items.selectItems.length === 1 ? (
 									<S.InfoItmesContents>{items.selectItems}</S.InfoItmesContents>
 								) : (
-									<select>
+									<select onChange={selectValue}>
 										{items.selectItems.map((selectList, index) => {
 											return (
-												<option key={index} value="">
+												<option key={index} value={list}>
 													{selectList}
 												</option>
 											);
