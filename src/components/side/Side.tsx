@@ -13,8 +13,6 @@ import Button from '@components/button/Button';
 // }
 
 export default function Side() {
-	console.log(RELEASE_DATA);
-
 	const [startDate, setStartDate] = useState<number>(0);
 	const [endDate, setEndDate] = useState<number>(0);
 	const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
@@ -48,13 +46,17 @@ export default function Side() {
 							<S.InfoList key={items.id}>
 								<S.InfoItemsTitle>{items.title}:</S.InfoItemsTitle>
 								{items.selectItems.length === 1 ? (
-									<S.InfoItemsContents>{items.selectItems}</S.InfoItemsContents>
+									<>
+										{items.selectItems.map((selectList, index) => {
+											return <S.InfoItemsContents>{selectList.name}</S.InfoItemsContents>;
+										})}
+									</>
 								) : (
 									<select onChange={getSelectedData}>
-										{items.selectItems.map((selectList, index) => {
+										{items.selectItems?.map((selectList, index) => {
 											return (
 												<option value="12" key={index}>
-													{selectList}
+													{selectList.name}
 												</option>
 											);
 										})}
