@@ -17,6 +17,8 @@ export default function Side() {
 				<S.ReleaseInfo>
 					<span>출고요청번호</span>
 					<span>21212.212</span>
+					<span>출고요청 일자</span>
+					<span>21212.212</span>
 					{RELEASE_DATA.map((items) => {
 						return (
 							<div key={items.id}>
