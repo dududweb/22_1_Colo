@@ -3,12 +3,16 @@ import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import Router from './Router';
+import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
 
 ReactDOM.render(
 	<>
 		<GlobalStyle />
+
 		<ThemeProvider theme={theme}>
-			<Router />
+			<RecoilRoot>
+				<Router />
+			</RecoilRoot>
 		</ThemeProvider>
 	</>,
 	document.getElementById('root'),
