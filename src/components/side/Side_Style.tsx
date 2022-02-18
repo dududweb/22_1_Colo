@@ -23,13 +23,13 @@ export const InfoList = styled.li`
 	margin-top: 1rem;
 `;
 
-export const InfoItmesTitle = styled.h4`
+export const InfoItemsTitle = styled.h4`
 	width: 100px;
 	margin-right: 50px;
 	color: ${({ theme }) => theme.mainColor};
 	font-weight: ${({ theme }) => theme.fontWeightBold};
 `;
 
-export const InfoItmesContents = styled.h4`
+export const InfoItemsContents = styled.h4`
 	padding-right: 10px;
 `;
