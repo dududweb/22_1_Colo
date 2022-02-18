@@ -148,9 +148,10 @@ export default function List() {
 										<TableCell
 											key={column.id}
 											style={{
-												top: 57.5,
+												top: 0,
 												minWidth: column.minWidth,
 												backgroundColor: 'lightgrey',
+												borderBottomColor: 'gray',
 											}}
 										>
 											{column.label}
@@ -161,7 +162,12 @@ export default function List() {
 									{columns.slice(10, 20).map((column) => (
 										<TableCell
 											key={column.id}
-											style={{ top: 57.5, minWidth: column.minWidth, backgroundColor: 'lightgrey' }}
+											style={{
+												top: 57,
+												minWidth: column.minWidth,
+												backgroundColor: 'lightgrey',
+												borderBlockColor: 'gray',
+											}}
 										>
 											{column.label}
 										</TableCell>
@@ -208,6 +214,7 @@ export default function List() {
 															whiteSpace: 'nowrap',
 															overflow: 'hidden',
 															textOverflow: 'ellipsis',
+															borderBottomColor: 'gray',
 														}}
 													>
 														{value}

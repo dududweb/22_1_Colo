@@ -14,6 +14,9 @@ export default function Side() {
 	const [startDate, setStartDate] = useState<number>(0);
 	const [endDate, setEndDate] = useState<number>(0);
 	console.log(typeof startDate);
+
+	const List = [{ name: '출고요청' }, { name: '출고중' }, { name: '출고완료' }];
+
 	return (
 		<S.Side>
 			<S.SideInner>
