@@ -5,6 +5,7 @@ import DatePicker from '@components/datePicker/DatePicker';
 import { useRecoilState } from 'recoil';
 import { filteredReleaseData } from '../../atom';
 import Button from '@components/button/Button';
+import { optionGroupUnstyledClasses } from '@mui/base';
 
 // interface Root2 {
 // 	id: number;
@@ -17,26 +18,33 @@ export default function Side({ handlefilterData }: any) {
 	const [endDate, setEndDate] = useState<number>(0);
 	console.log(typeof startDate);
 
-	const [list, setList] = useState();
+	// console.log('test>>', list);
+	// const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
+	// const [selectedData, setSelectedData] = useState({
+	// 	rangeStartDate: startDate,
+	// 	rangeEndDate: endDate,
+	// 	release_status: '',
+	// 	release_type: '',
+	// });
+
+	// const getSelectedData = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	// 	const { name, value } = event.target;
+	// 	setSelectedData({ ...selectedData, [name]: value });
+	// };
+
+	const [lists, setLists] = useState({});
+
+	// const { release_status, release_Type }: any = lists;
 
 	const selectValue = (e: any) => {
-		const { value } = e.target;
-		setList(value);
+		const { value, id } = e.target;
+		setLists({
+			...lists,
+			[value]: value,
+		});
 	};
 
-	console.log('test>>', list);
-	const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
-	const [selectedData, setSelectedData] = useState({
-		rangeStartDate: startDate,
-		rangeEndDate: endDate,
-		release_status: '',
-		release_type: '',
-	});
-
-	const getSelectedData = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		const { name, value } = event.target;
-		setSelectedData({ ...selectedData, [name]: value });
-	};
+	console.log('lists>>>', lists);
 
 	return (
 		<S.Side>
@@ -58,15 +66,17 @@ export default function Side({ handlefilterData }: any) {
 										})}
 									</>
 								) : (
-									<select onChange={getSelectedData}>
-										{items.selectItems?.map((selectList, index) => {
-											return (
-												<option value="12" key={index}>
-													{selectList.name}
-												</option>
-											);
-										})}
-									</select>
+									<>
+										<select onChange={selectValue}>
+											{items.selectItems?.map((selectList: any, index) => {
+												return (
+													<option value={selectList.value} key={index}>
+														{selectList.value}
+													</option>
+												);
+											})}
+										</select>
+									</>
 								)}
 							</S.InfoList>
 						);
