@@ -12,7 +12,7 @@ import Button from '@components/button/Button';
 // 	selectItems: string[];
 // }
 
-export default function Side() {
+export default function Side({ handlefilterData }: any) {
 	const [startDate, setStartDate] = useState<number>(0);
 	const [endDate, setEndDate] = useState<number>(0);
 	console.log(typeof startDate);
@@ -36,10 +36,6 @@ export default function Side() {
 	const getSelectedData = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const { name, value } = event.target;
 		setSelectedData({ ...selectedData, [name]: value });
-	};
-
-	const saveFilteredData = () => {
-		console.log('test');
 	};
 
 	return (
@@ -81,7 +77,7 @@ export default function Side() {
 							<DatePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
 						</S.InfoItemsContents>
 					</S.InfoList>
-					<Button onClick={saveFilteredData} buttonName="검색" backgroundColor="white" color="blue" margin="0" />
+					<Button onClick={handlefilterData} buttonName="검색" backgroundColor="white" color="blue" margin="0" />
 				</S.ReleaseInfo>
 			</S.SideInner>
 		</S.Side>
