@@ -2,6 +2,9 @@ import * as S from './Side_Style';
 import React, { useState } from 'react';
 import { RELEASE_DATA } from './SideData';
 import DatePicker from '@components/datePicker/DatePicker';
+import { useRecoilState } from 'recoil';
+import { filteredReleaseData } from '../../atom';
+import Button from '@components/button/Button';
 
 // interface Root2 {
 // 	id: number;
@@ -10,7 +13,6 @@ import DatePicker from '@components/datePicker/DatePicker';
 // }
 
 export default function Side() {
-	console.log(RELEASE_DATA);
 	const [startDate, setStartDate] = useState<number>(0);
 	const [endDate, setEndDate] = useState<number>(0);
 	console.log(typeof startDate);
@@ -23,6 +25,22 @@ export default function Side() {
 	};
 
 	console.log('test>>', list);
+	const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
+	const [selectedData, setSelectedData] = useState({
+		rangeStartDate: startDate,
+		rangeEndDate: endDate,
+		release_status: '',
+		release_type: '',
+	});
+
+	const getSelectedData = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const { name, value } = event.target;
+		setSelectedData({ ...selectedData, [name]: value });
+	};
+
+	const saveFilteredData = () => {
+		console.log('test');
+	};
 
 	return (
 		<S.Side>
@@ -30,21 +48,25 @@ export default function Side() {
 				<S.SideTitle>출고 신청 번호</S.SideTitle>
 				<S.ReleaseInfo>
 					<S.InfoList>
-						<S.InfoItmesTitle>출고요청번호</S.InfoItmesTitle>
-						<S.InfoItmesContents>Xl-21212-212</S.InfoItmesContents>
+						<S.InfoItemsTitle>출고요청번호</S.InfoItemsTitle>
+						<S.InfoItemsContents>Xl-21212-212</S.InfoItemsContents>
 					</S.InfoList>
 					{RELEASE_DATA.map((items) => {
 						return (
 							<S.InfoList key={items.id}>
-								<S.InfoItmesTitle>{items.title}:</S.InfoItmesTitle>
+								<S.InfoItemsTitle>{items.title}:</S.InfoItemsTitle>
 								{items.selectItems.length === 1 ? (
-									<S.InfoItmesContents>{items.selectItems}</S.InfoItmesContents>
-								) : (
-									<select onChange={selectValue}>
+									<>
 										{items.selectItems.map((selectList, index) => {
+											return <S.InfoItemsContents>{selectList.name}</S.InfoItemsContents>;
+										})}
+									</>
+								) : (
+									<select onChange={getSelectedData}>
+										{items.selectItems?.map((selectList, index) => {
 											return (
-												<option key={index} value={list}>
-													{selectList}
+												<option value="12" key={index}>
+													{selectList.name}
 												</option>
 											);
 										})}
@@ -54,11 +76,12 @@ export default function Side() {
 						);
 					})}
 					<S.InfoList>
-						<S.InfoItmesTitle>출고요청 일자</S.InfoItmesTitle>
-						<S.InfoItmesContents>
+						<S.InfoItemsTitle>출고요청 일자</S.InfoItemsTitle>
+						<S.InfoItemsContents>
 							<DatePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
-						</S.InfoItmesContents>
+						</S.InfoItemsContents>
 					</S.InfoList>
+					<Button onClick={saveFilteredData} buttonName="검색" backgroundColor="white" color="blue" margin="0" />
 				</S.ReleaseInfo>
 			</S.SideInner>
 		</S.Side>

@@ -5,11 +5,12 @@ interface ButtonProps {
 	backgroundColor: string;
 	color: string;
 	margin: string;
+	onClick?: () => void;
 }
 
-export default function Button({ buttonName, backgroundColor, color, margin }: ButtonProps) {
+export default function Button({ onClick, buttonName, backgroundColor, color, margin }: ButtonProps) {
 	return (
-		<S.Container backgroundColor={backgroundColor} color={color} margin={margin}>
+		<S.Container onClick={onClick} backgroundColor={backgroundColor} color={color} margin={margin}>
 			{buttonName}
 		</S.Container>
 	);
