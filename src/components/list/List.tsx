@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import * as S from './List_Style';
+import { COLUMNS_DATA } from './ListData';
+import { useRecoilState } from 'recoil';
 import Button from '@components/button/Button';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -9,130 +9,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { orderfilteredData } from '../../atom';
 
 export default function List() {
-	const [orderList, setOrderList] = useState<any[]>();
-
-	const columns = [
-		{ id: 'date', label: '출고요청일자', minWidth: 110 },
-		{ id: 'release_status', label: '출고 상태', minWidth: 110 },
-		{ id: 'release_type', label: '출고 유형', minWidth: 110 },
-		{
-			id: 'file_name',
-			label: '출고서파일명',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'id',
-			label: '액셀 행 순번',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'map_status',
-			label: '매핑상태',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'order_form',
-			label: '주문서 양식',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'order_num',
-			label: '주문번호',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'linked_product',
-			label: '연동상품ID',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'product_name',
-			label: '주문명',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'comp_product_name',
-			label: '콜로상품명',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'comp_product_code',
-			label: '콜로상품코드',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'comp_product_id',
-			label: '콜로상품ID',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'amount',
-			label: '주문수량',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'unit',
-			label: '주문단위',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'release_amount',
-			label: '출고수량',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'warehouse',
-			label: '출고창고명',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'lack_stock',
-			label: '재고부족여부',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'warehouse',
-			label: '주문자',
-			minWidth: 110,
-			align: 'center',
-		},
-		{
-			id: 'user_phone',
-			label: '전화번호',
-			minWidth: 110,
-			align: 'center',
-		},
-	];
-
-	useEffect(() => {
-		getData();
-	}, []);
-
-	const getData = async () => {
-		axios
-			.get('/mockData.json')
-			.then((res: any) => {
-				setOrderList(res.data.orderlist);
-			})
-			.catch((error) => console.log(error));
-	};
+	const [orderFilterList, setOrderFilterList] = useRecoilState(orderfilteredData);
 
 	return (
 		<S.Container>
@@ -144,13 +24,14 @@ export default function List() {
 						<TableHead>
 							<TableRow>
 								<div>
-									{columns.slice(0, 10).map((column) => (
+									{COLUMNS_DATA.slice(0, 10).map((column) => (
 										<TableCell
 											key={column.id}
 											style={{
-												top: 57.5,
+												top: 0,
 												minWidth: column.minWidth,
 												backgroundColor: 'lightgrey',
+												borderBottomColor: 'gray',
 											}}
 										>
 											{column.label}
@@ -158,10 +39,16 @@ export default function List() {
 									))}
 								</div>
 								<div>
-									{columns.slice(10, 20).map((column) => (
+									{COLUMNS_DATA.slice(10, 20).map((column) => (
 										<TableCell
-											key={column.id}
-											style={{ top: 57.5, minWidth: column.minWidth, backgroundColor: 'lightgrey' }}
+											key={column.name}
+											style={{
+												top: 57,
+												minWidth: column.minWidth,
+												backgroundColor: 'lightgrey',
+												borderBlockColor: 'gray',
+												display: 'table-cell',
+											}}
 										>
 											{column.label}
 										</TableCell>
@@ -169,13 +56,13 @@ export default function List() {
 								</div>
 							</TableRow>
 						</TableHead>
-						<TableBody>
-							{orderList?.map((row: any) => {
-								return (
-									<TableRow hover key={row.code}>
-										<div>
-											{columns.slice(0, 10).map((column) => {
-												const value = row[column.id];
+						{orderFilterList.length > 0 ? (
+							<TableBody>
+								{orderFilterList?.map((row: any) => {
+									return (
+										<TableRow hover key={row.code}>
+											{COLUMNS_DATA.slice(0, 10).map((column) => {
+												const value = row[column.name];
 												return (
 													<TableCell
 														key={column.id}
@@ -194,10 +81,8 @@ export default function List() {
 													</TableCell>
 												);
 											})}
-										</div>
-										<div>
-											{columns.slice(10, 20).map((column) => {
-												const value = row[column.id];
+											{COLUMNS_DATA.slice(10, 20).map((column) => {
+												const value = row[column.name];
 												return (
 													<TableCell
 														key={column.id}
@@ -208,17 +93,22 @@ export default function List() {
 															whiteSpace: 'nowrap',
 															overflow: 'hidden',
 															textOverflow: 'ellipsis',
+															borderBottomColor: 'gray',
 														}}
 													>
 														{value}
 													</TableCell>
 												);
 											})}
-										</div>
-									</TableRow>
-								);
-							})}
-						</TableBody>
+										</TableRow>
+									);
+								})}
+							</TableBody>
+						) : (
+							<TableBody>
+								<S.Empty>출고 상태, 출고 유형을 선택해주세요.</S.Empty>
+							</TableBody>
+						)}
 					</Table>
 				</TableContainer>
 			</Paper>

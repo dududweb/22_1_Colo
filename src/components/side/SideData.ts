@@ -18,7 +18,7 @@ export const RELEASE_DATA = [
 		name: 'release_type',
 		selectItems: [
 			{ id: 1, value: '오전(10:00) 출고' },
-			{ id: 2, value: '오후(04:00) 출고' },
+			{ id: 2, value: '오후(4:00) 출고' },
 		],
 	},
 	{ id: 6, title: '파일명', selectItems: [{ id: 1, value: 'Iamgold Corporation.xls' }] },
