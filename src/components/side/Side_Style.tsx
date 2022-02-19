@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+export const Form = styled.form``;
+
 export const Side = styled.aside`
 	width: 400px;
 	border-right: 1px solid #ebebeb;
@@ -14,11 +16,7 @@ export const SideTitle = styled.h2`
 	font-size: ${({ theme }) => theme.fontMedium};
 `;
 
-export const ReleaseInfo = styled.ul`
-	margin-top: 2rem;
-`;
-
-export const InfoList = styled.li`
+export const InfoList = styled.div`
 	display: flex;
 	margin-top: 1rem;
 `;

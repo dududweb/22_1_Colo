@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import * as S from './List_Style';
 import { COLUMNS_DATA } from './ListData';
+import { useRecoilState } from 'recoil';
 import Button from '@components/button/Button';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -10,37 +9,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { orderfilteredData } from '../../atom';
 
 export default function List() {
-	const [orderList, setOrderList] = useState<any[]>();
-	// const [filterList, setFilterList] = useState<any[]>();
-
-	// const handlefilterData = () => {
-	// 	const result = orderList?.filter(
-	// 		(el: any) => el.release_status === '출고요청' && el.release_type === '오전(10:00) 출고',
-	// 	);
-	// 	setOrderList(result);
-	// };
-
-	useEffect(() => {
-		const result = orderList?.filter(
-			(el: any) => el.release_status === '출고요청' && el.release_type === '오전(10:00) 출고',
-		);
-		setOrderList(result);
-	}, []);
-
-	useEffect(() => {
-		getData();
-	}, []);
-
-	const getData = async () => {
-		axios
-			.get('/mockData.json')
-			.then((res: any) => {
-				setOrderList(res.data.orderlist);
-			})
-			.catch((error) => console.log(error));
-	};
+	const [orderFilterList, setOrderFilterList] = useRecoilState(orderfilteredData);
 
 	return (
 		<S.Container>
@@ -75,7 +47,7 @@ export default function List() {
 												minWidth: column.minWidth,
 												backgroundColor: 'lightgrey',
 												borderBlockColor: 'gray',
-												display: '',
+												display: 'table-cell',
 											}}
 										>
 											{column.label}
@@ -84,53 +56,59 @@ export default function List() {
 								</div>
 							</TableRow>
 						</TableHead>
-						<TableBody>
-							{orderList?.map((row: any) => {
-								return (
-									<TableRow hover key={row.code}>
-										{COLUMNS_DATA.slice(0, 10).map((column) => {
-											const value = row[column.name];
-											return (
-												<TableCell
-													key={column.id}
-													style={{
-														width: '110px',
-														fontSize: '12px',
-														height: '10px',
-														borderBottom: 'none',
-														display: 'inline-block',
-														whiteSpace: 'nowrap',
-														overflow: 'hidden',
-														textOverflow: 'ellipsis',
-													}}
-												>
-													{value}
-												</TableCell>
-											);
-										})}
-										{COLUMNS_DATA.slice(10, 20).map((column) => {
-											const value = row[column.name];
-											return (
-												<TableCell
-													key={column.id}
-													style={{
-														width: '110px',
-														fontSize: '12px',
-														display: 'inline-block',
-														whiteSpace: 'nowrap',
-														overflow: 'hidden',
-														textOverflow: 'ellipsis',
-														borderBottomColor: 'gray',
-													}}
-												>
-													{value}
-												</TableCell>
-											);
-										})}
-									</TableRow>
-								);
-							})}
-						</TableBody>
+						{orderFilterList.length > 0 ? (
+							<TableBody>
+								{orderFilterList?.map((row: any) => {
+									return (
+										<TableRow hover key={row.code}>
+											{COLUMNS_DATA.slice(0, 10).map((column) => {
+												const value = row[column.name];
+												return (
+													<TableCell
+														key={column.id}
+														style={{
+															width: '110px',
+															fontSize: '12px',
+															height: '10px',
+															borderBottom: 'none',
+															display: 'inline-block',
+															whiteSpace: 'nowrap',
+															overflow: 'hidden',
+															textOverflow: 'ellipsis',
+														}}
+													>
+														{value}
+													</TableCell>
+												);
+											})}
+											{COLUMNS_DATA.slice(10, 20).map((column) => {
+												const value = row[column.name];
+												return (
+													<TableCell
+														key={column.id}
+														style={{
+															width: '110px',
+															fontSize: '12px',
+															display: 'inline-block',
+															whiteSpace: 'nowrap',
+															overflow: 'hidden',
+															textOverflow: 'ellipsis',
+															borderBottomColor: 'gray',
+														}}
+													>
+														{value}
+													</TableCell>
+												);
+											})}
+										</TableRow>
+									);
+								})}
+							</TableBody>
+						) : (
+							<TableBody>
+								<S.Empty>출고 상태, 출고 유형을 선택해주세요.</S.Empty>
+							</TableBody>
+						)}
 					</Table>
 				</TableContainer>
 			</Paper>
