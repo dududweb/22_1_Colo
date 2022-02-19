@@ -15,19 +15,19 @@ export default function List() {
 	const [orderList, setOrderList] = useState<any[]>();
 	// const [filterList, setFilterList] = useState<any[]>();
 
-	const handlefilterData = () => {
-		const result = orderList?.filter(
-			(el: any) => el.release_status === '출고요청' && el.release_type === '오전(10:00) 출고',
-		);
-		setOrderList(result);
-	};
-
-	// useEffect(() => {
+	// const handlefilterData = () => {
 	// 	const result = orderList?.filter(
 	// 		(el: any) => el.release_status === '출고요청' && el.release_type === '오전(10:00) 출고',
 	// 	);
 	// 	setOrderList(result);
-	// }, []);
+	// };
+
+	useEffect(() => {
+		const result = orderList?.filter(
+			(el: any) => el.release_status === '출고요청' && el.release_type === '오전(10:00) 출고',
+		);
+		setOrderList(result);
+	}, []);
 
 	useEffect(() => {
 		getData();
@@ -135,13 +135,7 @@ export default function List() {
 				</TableContainer>
 			</Paper>
 
-			<Button
-				buttonName="출고주문서 다운로드"
-				backgroundColor="#1a237e"
-				color="#fff"
-				margin="10"
-				onClick={handlefilterData}
-			/>
+			<Button buttonName="출고주문서 다운로드" backgroundColor="#1a237e" color="#fff" margin="10" />
 			<Button buttonName="전체출고취소" backgroundColor="#1a237e" color="#fff" margin="10" />
 			<Button buttonName="매핑결과 최종 확인" backgroundColor="#1a237e" color="#fff" margin="10" />
 			<Button buttonName="목록으로" backgroundColor="#fff" color="#1a237e" margin="10" />
