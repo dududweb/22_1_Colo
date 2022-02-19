@@ -51,6 +51,10 @@ export default function Side() {
 						<S.InfoItemsTitle>출고요청번호:</S.InfoItemsTitle>
 						<S.InfoItemsContents>Xl-21212-212</S.InfoItemsContents>
 					</S.InfoList>
+					<S.InfoList>
+						<S.InfoItemsTitle>출고요청 일자</S.InfoItemsTitle>
+						<S.InfoItemsContents>2022/02/17</S.InfoItemsContents>
+					</S.InfoList>
 					{RELEASE_DATA.map((items) => {
 						return (
 							<S.InfoList key={items.id}>
@@ -75,12 +79,7 @@ export default function Side() {
 							</S.InfoList>
 						);
 					})}
-					<S.InfoList>
-						<S.InfoItemsTitle>출고요청 일자</S.InfoItemsTitle>
-						<S.InfoItemsContents>
-							<DatePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
-						</S.InfoItemsContents>
-					</S.InfoList>
+
 					<Button type="submit" buttonName="검색" backgroundColor="white" color="blue" margin="0" />
 				</S.Form>
 			</S.SideInner>

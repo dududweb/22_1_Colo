@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { orderfilteredData } from '../../atom';
+import { Fragment } from 'react';
 
 export default function List() {
 	const [orderFilterList, setOrderFilterList] = useRecoilState(orderfilteredData);
@@ -23,34 +24,38 @@ export default function List() {
 					<Table stickyHeader aria-label="sticky table">
 						<TableHead>
 							<TableRow>
-								{COLUMNS_DATA.slice(0, 10).map((column) => (
-									<TableCell
-										key={column.id}
-										style={{
-											top: 0,
-											minWidth: column.minWidth,
-											backgroundColor: 'lightgrey',
-											borderBottomColor: 'gray',
-											display: 'inline-block',
-										}}
-									>
-										{column.label}
-									</TableCell>
-								))}
-								{COLUMNS_DATA.slice(10, 20).map((column) => (
-									<TableCell
-										key={column.name}
-										style={{
-											top: 57,
-											minWidth: column.minWidth,
-											backgroundColor: 'lightgrey',
-											borderBlockColor: 'gray',
-											display: 'inline-block',
-										}}
-									>
-										{column.label}
-									</TableCell>
-								))}
+								<Fragment>
+									{COLUMNS_DATA.slice(0, 10).map((column) => (
+										<TableCell
+											key={column.id}
+											style={{
+												top: 0,
+												minWidth: column.minWidth,
+												backgroundColor: 'lightgrey',
+												borderBottomColor: 'gray',
+												display: 'inline-block',
+											}}
+										>
+											{column.label}
+										</TableCell>
+									))}
+								</Fragment>
+								<Fragment>
+									{COLUMNS_DATA.slice(10, 20).map((column) => (
+										<TableCell
+											key={column.name}
+											style={{
+												top: 57,
+												minWidth: column.minWidth,
+												backgroundColor: 'lightgrey',
+												borderBlockColor: 'gray',
+												display: 'inline-block',
+											}}
+										>
+											{column.label}
+										</TableCell>
+									))}
+								</Fragment>
 							</TableRow>
 						</TableHead>
 						{orderFilterList.length > 0 ? (
