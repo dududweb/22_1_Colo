@@ -17,6 +17,6 @@ export const COLUMNS_DATA = [
 	{ id: 16, name: 'release_amount', label: '출고수량', minWidth: 110, align: 'center' },
 	{ id: 17, name: 'warehouse', label: '출고창고명', minWidth: 110, align: 'center' },
 	{ id: 18, name: 'lack_stock', label: '재고부족여부', minWidth: 110, align: 'center' },
-	{ id: 19, name: 'warehouse', label: '주문자', minWidth: 110, align: 'center' },
+	{ id: 19, name: 'user_name', label: '주문자', minWidth: 110, align: 'center' },
 	{ id: 20, name: 'user_phone', label: '전화번호', minWidth: 110, align: 'center' },
 ];
