@@ -22,37 +22,34 @@ export default function List() {
 					<Table stickyHeader aria-label="sticky table">
 						<TableHead>
 							<TableRow>
-								<div>
-									{COLUMNS_DATA.slice(0, 10).map((column) => (
-										<TableCell
-											key={column.id}
-											style={{
-												top: 0,
-												minWidth: column.minWidth,
-												backgroundColor: 'lightgrey',
-												borderBottomColor: 'gray',
-											}}
-										>
-											{column.label}
-										</TableCell>
-									))}
-								</div>
-								<div>
-									{COLUMNS_DATA.slice(10, 20).map((column) => (
-										<TableCell
-											key={column.name}
-											style={{
-												top: 57,
-												minWidth: column.minWidth,
-												backgroundColor: 'lightgrey',
-												borderBlockColor: 'gray',
-												display: 'table-cell',
-											}}
-										>
-											{column.label}
-										</TableCell>
-									))}
-								</div>
+								{COLUMNS_DATA.slice(0, 10).map((column) => (
+									<TableCell
+										key={column.id}
+										style={{
+											top: 0,
+											minWidth: column.minWidth,
+											backgroundColor: 'lightgrey',
+											borderBottomColor: 'gray',
+											display: 'inline-block',
+										}}
+									>
+										{column.label}
+									</TableCell>
+								))}
+								{COLUMNS_DATA.slice(10, 20).map((column) => (
+									<TableCell
+										key={column.name}
+										style={{
+											top: 57,
+											minWidth: column.minWidth,
+											backgroundColor: 'lightgrey',
+											borderBlockColor: 'gray',
+											display: 'inline-block',
+										}}
+									>
+										{column.label}
+									</TableCell>
+								))}
 							</TableRow>
 						</TableHead>
 						{orderFilterList.length > 0 ? (
@@ -105,7 +102,17 @@ export default function List() {
 							</TableBody>
 						) : (
 							<TableBody>
-								<S.Empty>출고 상태, 출고 유형을 선택해주세요.</S.Empty>
+								<TableRow>
+									<TableCell
+										style={{
+											padding: '100px',
+											display: 'flex',
+											justifyContent: 'center',
+										}}
+									>
+										출고 상태, 출고 유형을 선택해주세요.
+									</TableCell>
+								</TableRow>
 							</TableBody>
 						)}
 					</Table>
