@@ -7,7 +7,7 @@ export const textState = atom({
 
 export const filteredReleaseData = atom({
 	key: 'filteredReleaseData', // unique ID (with respect to other atoms/selectors)
-	default: { release_status: '', release_type: '' }, // default value (aka initial value)
+	default: { stratDate: '', endDate: '', release_status: '', release_type: '' }, // default value (aka initial value)
 });
 
 export const orderfilteredData = atom({

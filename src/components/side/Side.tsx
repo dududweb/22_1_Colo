@@ -3,17 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { RELEASE_DATA } from './SideData';
 import DatePicker from '@components/datePicker/DatePicker';
 import { useRecoilState } from 'recoil';
-import { filteredReleaseData } from '../../atom';
-import { orderfilteredData } from '../../atom';
+import { orderfilteredData, filteredReleaseData } from '../../atom';
 import Button from '@components/button/Button';
 import axios from 'axios';
 
 export default function Side() {
 	const [startDate, setStartDate] = useState<number>(0);
 	const [endDate, setEndDate] = useState<number>(0);
-	const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
-
 	const [orderList, setOrderList] = useState<any>();
+	const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
 	const [orderFilterList, setOrderFilterList] = useRecoilState(orderfilteredData);
 
 	const getSelectedData = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -21,7 +19,7 @@ export default function Side() {
 		setFiltetedData({ ...filteredData, [name]: value });
 	};
 
-	const handlefilterData = (event: React.FormEvent<HTMLFormElement>): void => {
+	const handleFilterData = (event: React.FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
 		const result = orderList?.filter(
 			(el: any) => el.release_status === filteredData.release_status && el.release_type === filteredData.release_type,
@@ -30,26 +28,28 @@ export default function Side() {
 	};
 
 	useEffect(() => {
-		getData();
+		async () => {
+			axios
+				.get('/mockData.json')
+				.then((res: any) => {
+					setOrderList(res.data.orderlist);
+				})
+				.catch((error) => setOrderList(error));
+		};
 	}, []);
-
-	const getData = async () => {
-		axios
-			.get('/mockData.json')
-			.then((res: any) => {
-				setOrderList(res.data.orderlist);
-			})
-			.catch((error) => setOrderList(error));
-	};
 
 	return (
 		<S.Side>
 			<S.SideInner>
 				<S.SideTitle>출고 신청 번호</S.SideTitle>
-				<S.Form method="post" onSubmit={handlefilterData}>
+				<S.Form method="post" onSubmit={handleFilterData}>
 					<S.InfoList>
 						<S.InfoItemsTitle>출고요청번호:</S.InfoItemsTitle>
 						<S.InfoItemsContents>Xl-21212-212</S.InfoItemsContents>
+					</S.InfoList>
+					<S.InfoList>
+						<S.InfoItemsTitle>출고요청 일자</S.InfoItemsTitle>
+						<S.InfoItemsContents>2022-02-17</S.InfoItemsContents>
 					</S.InfoList>
 					{RELEASE_DATA.map((items) => {
 						return (
@@ -75,12 +75,7 @@ export default function Side() {
 							</S.InfoList>
 						);
 					})}
-					<S.InfoList>
-						<S.InfoItemsTitle>출고요청 일자</S.InfoItemsTitle>
-						<S.InfoItemsContents>
-							<DatePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
-						</S.InfoItemsContents>
-					</S.InfoList>
+
 					<Button type="submit" buttonName="검색" backgroundColor="white" color="blue" margin="0" />
 				</S.Form>
 			</S.SideInner>

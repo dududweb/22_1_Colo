@@ -9,7 +9,7 @@ interface ButtonProps {
 	onClick?: () => void;
 }
 
-export default function Button({ type, onClick, buttonName, backgroundColor, color, margin }: ButtonProps) {
+export default function Button({ onClick, buttonName, backgroundColor, color, margin }: ButtonProps) {
 	return (
 		<S.Container type="submit" onClick={onClick} backgroundColor={backgroundColor} color={color} margin={margin}>
 			{buttonName}

@@ -4,16 +4,15 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-interface BasicDatePicker {
-	startDate: object;
-	endDate: object;
-	setStartDate: () => void;
-	setEndDate: () => void;
-}
+// interface BasicDatePicker {
+// 	startDate: object;
+// 	endDate: object;
+// 	setStartDate: () => void;
+// 	setEndDate: () => void;
+// }
 
 export default function BasicDatePicker(props: any) {
 	const { startDate, setStartDate, endDate, setEndDate } = props;
-	console.log(startDate, endDate);
 
 	return (
 		<S.DatepickerContainer>

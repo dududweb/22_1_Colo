@@ -17,7 +17,6 @@ export default function List() {
 	return (
 		<S.Container>
 			<S.Title>출고 요청서 매핑 리스트</S.Title>
-
 			<Paper sx={{ width: '1100px' }}>
 				<TableContainer sx={{ maxHeight: 700 }}>
 					<Table stickyHeader aria-label="sticky table">
