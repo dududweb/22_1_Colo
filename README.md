@@ -5,7 +5,6 @@
 
 ![collo](https://user-images.githubusercontent.com/91524565/154792617-4bb0bf83-8fbf-44c9-8652-c17bb5431690.gif)
 
-### 로그인 기능
 
 ### 물류 데이터 처리 시스템 화면설계
 
