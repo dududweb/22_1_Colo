@@ -8,8 +8,6 @@ import Button from '@components/button/Button';
 import axios from 'axios';
 
 export default function Side() {
-	const [startDate, setStartDate] = useState<number>(0);
-	const [endDate, setEndDate] = useState<number>(0);
 	const [orderList, setOrderList] = useState<any>();
 	const [filteredData, setFiltetedData] = useRecoilState(filteredReleaseData);
 	const [orderFilterList, setOrderFilterList] = useRecoilState(orderfilteredData);

@@ -52,7 +52,7 @@ export default function List() {
 								))}
 							</TableRow>
 						</TableHead>
-						{orderFilterList.length > 0 ? (
+						{orderFilterList?.length > 0 ? (
 							<TableBody>
 								{orderFilterList?.map((row: any) => {
 									return (
