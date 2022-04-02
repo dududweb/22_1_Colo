@@ -47,7 +47,7 @@ export default function Side() {
 					</S.InfoList>
 					<S.InfoList>
 						<S.InfoItemsTitle>출고요청 일자</S.InfoItemsTitle>
-						<S.InfoItemsContents>2022-02-17</S.InfoItemsContents>
+						<S.InfoItemsContents>2022/02/17</S.InfoItemsContents>
 					</S.InfoList>
 					{RELEASE_DATA.map((items) => {
 						return (
