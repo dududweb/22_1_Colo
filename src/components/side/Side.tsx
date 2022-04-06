@@ -25,7 +25,6 @@ export default function Side() {
 		console.log(result);
 		setOrderFilterList(result);
 	};
-	console.log(orderList);
 	console.log(orderFilterList);
 
 	const getData = async () => {
