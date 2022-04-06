@@ -1,7 +1,6 @@
 import * as S from './Side_Style';
 import React, { useState, useEffect } from 'react';
 import { RELEASE_DATA } from './SideData';
-import DatePicker from '@components/datePicker/DatePicker';
 import { useRecoilState } from 'recoil';
 import { orderfilteredData, filteredReleaseData } from '../../atom';
 import Button from '@components/button/Button';
@@ -16,24 +15,30 @@ export default function Side() {
 		const { name, value } = event.target;
 		setFiltetedData({ ...filteredData, [name]: value });
 	};
+	console.log(filteredData);
 
 	const handleFilterData = (event: React.FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
 		const result = orderList?.filter(
 			(el: any) => el.release_status === filteredData.release_status && el.release_type === filteredData.release_type,
 		);
+		console.log(result);
 		setOrderFilterList(result);
+	};
+	console.log(orderList);
+	console.log(orderFilterList);
+
+	const getData = async () => {
+		axios
+			.get('/mockData.json')
+			.then((res: any) => {
+				setOrderList(res.data.orderlist);
+			})
+			.catch((error) => setOrderList(error));
 	};
 
 	useEffect(() => {
-		async () => {
-			axios
-				.get('/mockData.json')
-				.then((res: any) => {
-					setOrderList(res.data.orderlist);
-				})
-				.catch((error) => setOrderList(error));
-		};
+		getData();
 	}, []);
 
 	return (
@@ -73,7 +78,6 @@ export default function Side() {
 							</S.InfoList>
 						);
 					})}
-
 					<Button type="submit" buttonName="검색" backgroundColor="white" color="blue" margin="0" />
 				</S.Form>
 			</S.SideInner>
